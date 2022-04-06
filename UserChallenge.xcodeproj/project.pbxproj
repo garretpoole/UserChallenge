@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6045A58E27FE129400B8EC52 /* UserDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6045A58D27FE129400B8EC52 /* UserDetailsView.swift */; };
 		60B275A027FDF7C400D54D62 /* UserChallengeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B2759F27FDF7C400D54D62 /* UserChallengeApp.swift */; };
 		60B275A227FDF7C400D54D62 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60B275A127FDF7C400D54D62 /* ContentView.swift */; };
 		60B275A427FDF7C600D54D62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 60B275A327FDF7C600D54D62 /* Assets.xcassets */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6045A58D27FE129400B8EC52 /* UserDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsView.swift; sourceTree = "<group>"; };
 		60B2759C27FDF7C400D54D62 /* UserChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UserChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		60B2759F27FDF7C400D54D62 /* UserChallengeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserChallengeApp.swift; sourceTree = "<group>"; };
 		60B275A127FDF7C400D54D62 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -57,6 +59,7 @@
 			children = (
 				60B2759F27FDF7C400D54D62 /* UserChallengeApp.swift */,
 				60B275A127FDF7C400D54D62 /* ContentView.swift */,
+				6045A58D27FE129400B8EC52 /* UserDetailsView.swift */,
 				60B275AD27FDF7E000D54D62 /* User.swift */,
 				60B275B127FDFA6A00D54D62 /* Friend.swift */,
 				60B275A327FDF7C600D54D62 /* Assets.xcassets */,
@@ -143,6 +146,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6045A58E27FE129400B8EC52 /* UserDetailsView.swift in Sources */,
 				60B275A227FDF7C400D54D62 /* ContentView.swift in Sources */,
 				60B275A027FDF7C400D54D62 /* UserChallengeApp.swift in Sources */,
 				60B275AE27FDF7E000D54D62 /* User.swift in Sources */,

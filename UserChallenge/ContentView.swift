@@ -15,7 +15,7 @@ struct ContentView: View {
     @State private var users = [User]()
     
     var body: some View {
-        List(users, id: \.name){ user in
+        List(users, id: \.id){ user in
             VStack(alignment: .leading) {
                 Text(user.name)
                     .font(.headline)
