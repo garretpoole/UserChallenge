@@ -15,19 +15,27 @@ struct ContentView: View {
     @State private var users = [User]()
     
     var body: some View {
-        List(users, id: \.id){ user in
-            VStack(alignment: .leading) {
-                Text(user.name)
-                    .font(.headline)
-                Text(user.isActive ? "Active" : "Not Active")
+        NavigationView{
+            List(users, id: \.id){ user in
+                NavigationLink{
+                    UserDetailsView(user: user)
+                } label: {
+                    VStack(alignment: .leading) {
+                        Text(user.name)
+                            .font(.headline)
+                        Text(user.isActive ? "Active" : "Not Active")
+                            .foregroundColor(user.isActive ? Color.green : Color.red)
+                    }
+                }
             }
-        }
-        .task{
-            //'await' must be used for async functions
-            if(users.isEmpty){
-                print("loadData")
-                await loadData()
+            .task{
+                //'await' must be used for async functions
+                if(users.isEmpty){
+                    print("loadData")
+                    await loadData()
+                }
             }
+            .navigationTitle("UserChallenge")
         }
     }
     
