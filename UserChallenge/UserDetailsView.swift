@@ -11,57 +11,58 @@ struct UserDetailsView: View {
     let user: User
     
     var body: some View {
-        NavigationView{
-            ScrollView{
+        ScrollView{
+            VStack(alignment: .leading){
+                HStack{
+                    Text(user.isActive ? "Active" : "Not Active")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .foregroundColor(user.isActive ? Color.green : Color.red)
+                    NavigationLink{
+                        FriendView(friends: user.friends)
+                    } label: {
+                        Text("Friends")
+                            .padding()
+                            .foregroundColor(.secondary)
+                            .font(.headline)
+                    }
+                }
+                Spacer()
+                Text(user.about)
+                Spacer()
                 VStack(alignment: .leading){
                     HStack{
-                        Text(user.isActive ? "Active" : "Not Active")
-                            .font(.title2)
-                            .fontWeight(.bold)
-                            .foregroundColor(user.isActive ? Color.green : Color.red)
-                        Button("Friends") {
-                            
-                        }
-                        .padding()
-                        .foregroundColor(.secondary)
-                        .font(.headline)
-                    }
-                    Spacer()
-                    Text(user.about)
-                    Spacer()
-                    VStack(alignment: .leading){
-                        HStack{
-                            Text("Email: ")
-                                .font(.headline)
-                            Text(user.email.isEmpty ? "NA" : user.email)
-                        }
-                        HStack{
-                            Text("Address: ")
-                                .font(.headline)
-                            Text(user.address.isEmpty ? "NA" : user.address)
-                        }
-                        if !user.company.isEmpty{
-                            HStack{
-                                Text("Company: ")
-                                    .font(.headline)
-                                Text(user.company)
-                            }
-                        }
-                    }
-                    Spacer()
-                    HStack{
-                        Text("Tags: ")
+                        Text("Email: ")
                             .font(.headline)
-                        ForEach(user.tags, id: \.self) { tag in
-                            Text(tag)
+                        Text(user.email.isEmpty ? "NA" : user.email)
+                    }
+                    HStack{
+                        Text("Address: ")
+                            .font(.headline)
+                        Text(user.address.isEmpty ? "NA" : user.address)
+                    }
+                    if !user.company.isEmpty{
+                        HStack{
+                            Text("Company: ")
+                                .font(.headline)
+                            Text(user.company)
                         }
                     }
                 }
-                .padding()
-                .frame(maxWidth: .infinity)
+                Spacer()
+                HStack{
+                    Text("Tags: ")
+                        .font(.headline)
+                    ForEach(user.tags, id: \.self) { tag in
+                        Text(tag)
+                    }
+                }
             }
-            .navigationTitle(user.name)
+            .padding()
+            .frame(maxWidth: .infinity)
         }
+        .navigationTitle(user.name)
+        //.navigationBarTitleDisplayMode(.inline)
     }
 }
 
