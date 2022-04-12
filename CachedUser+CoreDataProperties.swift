@@ -26,7 +26,7 @@ extension CachedUser {
     @NSManaged public var about: String?
     @NSManaged public var registered: Date?
     @NSManaged public var tags: String?
-    @NSManaged public var friends: String?
+    @NSManaged public var friends: [CachedFriend]?
     
     var wrappedName: String {
         name ?? "Unknown"
@@ -46,12 +46,10 @@ extension CachedUser {
     var wrappedRegistered: Date {
         registered ?? Date.now
     }
-    var wrappedTags: String{
-        tags ?? "NA"
+    var wrappedTags: [String]{
+        tags?.components(separatedBy: ",") ?? ["NA"]
     }
-    var wrappedFriends: String{
-        friends ?? "NA"
-    }
+    
     
 
 }

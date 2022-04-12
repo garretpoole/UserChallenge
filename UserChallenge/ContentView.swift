@@ -12,7 +12,9 @@ struct Response: Codable {
 }
 
 struct ContentView: View {
+    @Environment(\.managedObjectContext) var moc
     @State private var users = [User]()
+    @FetchRequest(sortDescriptors: []) var cachedUsers: FetchedResults<CachedUser>
     
     var body: some View {
         NavigationView{
@@ -31,16 +33,39 @@ struct ContentView: View {
             .task{
                 //'await' must be used for async functions
                 if(users.isEmpty){
-                    print("loadData")
                     await loadData()
                 }
+                
             }
             .navigationTitle("UserChallenge")
         }
     }
     
+    func cacheData(data: User){
+        let user = CachedUser(context: moc)
+        user.id = data.id
+        user.isActive = data.isActive
+        user.name = data.name
+        user.age = Int16(data.age)
+        user.company = data.company
+        user.email = data.email
+        user.address = data.address
+        user.about = data.about
+        user.registered = data.registered
+        user.tags = data.tags.joined(separator: ",")
+        var cachedFriends = [CachedFriend]()
+        for friend in data.friends{
+            let cached = CachedFriend(context: moc)
+            cached.id = friend.id
+            cached.name = friend.name
+            cachedFriends.append(cached)
+        }
+        user.friends = cachedFriends
+        try? moc.save()
+    }
+    
+    
     func loadData() async{
-        print("loading...")
         guard let url = URL(string: "https://www.hackingwithswift.com/samples/friendface.json")
         else{
             print("Invalid URL")
@@ -60,8 +85,6 @@ struct ContentView: View {
         } catch{
             print("Invalid data")
         }
-        print("Done")
-        print(users.isEmpty)
     }
 }
 
