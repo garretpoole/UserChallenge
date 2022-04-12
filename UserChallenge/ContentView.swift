@@ -18,15 +18,15 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView{
-            List(users, id: \.id){ user in
+            List(cachedUsers, id: \.id){ cachedUser in
                 NavigationLink{
-                    UserDetailsView(user: user)
+                    UserDetailsView(user: cachedUser)
                 } label: {
                     VStack(alignment: .leading) {
-                        Text(user.name)
+                        Text(cachedUser.wrappedName)
                             .font(.headline)
-                        Text(user.isActive ? "Active" : "Not Active")
-                            .foregroundColor(user.isActive ? Color.green : Color.red)
+                        Text(cachedUser.isActive ? "Active" : "Not Active")
+                            .foregroundColor(cachedUser.isActive ? Color.green : Color.red)
                     }
                 }
             }
@@ -35,33 +35,38 @@ struct ContentView: View {
                 if(users.isEmpty){
                     await loadData()
                 }
+                await cacheData()
                 
             }
             .navigationTitle("UserChallenge")
         }
     }
     
-    func cacheData(data: User){
-        let user = CachedUser(context: moc)
-        user.id = data.id
-        user.isActive = data.isActive
-        user.name = data.name
-        user.age = Int16(data.age)
-        user.company = data.company
-        user.email = data.email
-        user.address = data.address
-        user.about = data.about
-        user.registered = data.registered
-        user.tags = data.tags.joined(separator: ",")
-        var cachedFriends = [CachedFriend]()
-        for friend in data.friends{
-            let cached = CachedFriend(context: moc)
-            cached.id = friend.id
-            cached.name = friend.name
-            cachedFriends.append(cached)
+    func cacheData() async{
+        await MainActor.run{
+            for user in users{
+                let cachedUser = CachedUser(context: moc)
+                cachedUser.id = user.id
+                cachedUser.isActive = user.isActive
+                cachedUser.name = user.name
+                cachedUser.age = Int16(user.age)
+                cachedUser.company = user.company
+                cachedUser.email = user.email
+                cachedUser.address = user.address
+                cachedUser.about = user.about
+                cachedUser.registered = user.registered
+                cachedUser.tags = user.tags.joined(separator: ",")
+                var cachedFriends = [CachedFriend]()
+                for friend in user.friends{
+                    let cached = CachedFriend(context: moc)
+                    cached.id = friend.id
+                    cached.name = friend.name
+                    cachedFriends.append(cached)
+                }
+                cachedUser.friends = "cachedFriends"
+                try? moc.save()
+            }
         }
-        user.friends = cachedFriends
-        try? moc.save()
     }
     
     

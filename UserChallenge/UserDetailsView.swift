@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct UserDetailsView: View {
-    let user: User
+    let user: CachedUser
     
     var body: some View {
         ScrollView{
@@ -19,7 +19,8 @@ struct UserDetailsView: View {
                         .fontWeight(.bold)
                         .foregroundColor(user.isActive ? Color.green : Color.red)
                     NavigationLink{
-                        FriendView(friends: user.friends)
+                        Text("Friends")
+                        //FriendView(friends: user.friends)
                     } label: {
                         Text("Friends")
                             .padding()
@@ -28,24 +29,24 @@ struct UserDetailsView: View {
                     }
                 }
                 Spacer()
-                Text(user.about)
+                Text(user.wrappedAbout)
                 Spacer()
                 VStack(alignment: .leading){
                     HStack{
                         Text("Email: ")
                             .font(.headline)
-                        Text(user.email.isEmpty ? "NA" : user.email)
+                        Text(user.wrappedEmail.isEmpty ? "NA" : user.wrappedEmail)
                     }
                     HStack{
                         Text("Address: ")
                             .font(.headline)
-                        Text(user.address.isEmpty ? "NA" : user.address)
+                        Text(user.wrappedAddress.isEmpty ? "NA" : user.wrappedAddress)
                     }
-                    if !user.company.isEmpty{
+                    if !user.wrappedCompany.isEmpty{
                         HStack{
                             Text("Company: ")
                                 .font(.headline)
-                            Text(user.company)
+                            Text(user.wrappedCompany)
                         }
                     }
                 }
@@ -53,21 +54,12 @@ struct UserDetailsView: View {
                 HStack{
                     Text("Tags: ")
                         .font(.headline)
-                    ForEach(user.tags, id: \.self) { tag in
-                        Text(tag)
-                    }
+                    Text(user.tags ?? "NA")
                 }
             }
             .padding()
             .frame(maxWidth: .infinity)
         }
-        .navigationTitle(user.name)
-        //.navigationBarTitleDisplayMode(.inline)
-    }
-}
-
-struct UserDetailsView_Previews: PreviewProvider {
-    static var previews: some View {
-        UserDetailsView(user: User(id: "2", isActive: true, name: "J", age: 12, company: "kdkd", email: "@", address: "", about: "akjsdncvojasnvjkasnjkvnaklsjnvnasfvnladsnfvodnsfojvnojadfnvjdnjfvnajkfnvknakfvnoaksnvkanslkvnlkasfnvlkasnklvnaskvn vasvnkasnvokasnv asvnasoknva k jnajn fvkjan s jnsjvn ka fvjon ", registered: Date.now, tags: ["lol", "lmao"], friends: [Friend(id: "lol", name: "K")]))
+        .navigationTitle(user.wrappedName)
     }
 }

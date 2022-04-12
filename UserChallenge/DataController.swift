@@ -11,7 +11,7 @@ import Foundation
 class DataController: ObservableObject {
     //tells to use our Bookworm data model for its container
     //dont contain data just the model of the data
-    let container = NSPersistentContainer(name: "CoreDataProject")
+    let container = NSPersistentContainer(name: "UserChallenge")
     //loads data from model
     init() {
         container.loadPersistentStores { description, error in

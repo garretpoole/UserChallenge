@@ -26,12 +26,12 @@ extension CachedUser {
     @NSManaged public var about: String?
     @NSManaged public var registered: Date?
     @NSManaged public var tags: String?
-    @NSManaged public var friends: [CachedFriend]?
+    @NSManaged public var friends: String?
     
     var wrappedName: String {
         name ?? "Unknown"
     }
-    var wrappedComany: String {
+    var wrappedCompany: String {
         company ?? "Unknown"
     }
     var wrappedEmail: String {
